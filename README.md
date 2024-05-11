@@ -1,66 +1,3 @@
-<div align="center">
-  <h1>Trivia Quiz</h1>
-  <p>
-    A quiz trivia game with 24 categories to choose from where you can test your knowledge and compete with others for a higher place in the leaderboard
-  </p>
-  
-[![Contributors][contributors-shield]][contributors-url]
-[![Commits][commits-shield]][commits-url]
-[![Issues][issues-shield]][issues-url]
-[![MIT License][license-shield]][license-url]
-
-[**View Demo**][demo-url] · [**Report Bug**][issues-url] · [**Request Feature**][issues-url]
-
-</div>
-
-
-
-## About
-
-### Description
-
-A MEAN stack web application where users can test their trivia knowledge and compete with others. We are using data from the [Open Trivia Database][open-trivia-database-url] which we retrieve via their [API][open-trivia-database-api-url]. 
-
-### Features
-
-* NodeJS backend
-    * Express to build the RESTfull API
-    * MongoDB Atlas to store information regarding the users
-    * UserModel authorization
-    * UserModel authentication via JWT
-* Angular frontend application
-    * Profile component available to registered users to view their scores and the leaderboard
-    * [Open Trivia API][open-trivia-database-api-url] to retrieve the information regarding the quiz, i.e., the categories, the questions and the answers
-    * Global leaderboard with the top 100 scores showing the players score, username and the category in which the quiz was played
-
-### Tech Stack
-
-***Backend***
-
-* [![Node][Node.js]][Node-url]
-* [![Nodemon][Nodemon]][Nodemon-url]
-* [![Express][Express]][Express-url]
-* [![MongoDB][MongoDB]][MongoDB-url]
-* [![Mongoose][Mongoose]][Mongoose-url]
-
-***Frontend***
-
-* [![Angular][Angular]][Angular-url]
-* [![MaterialDesign][MaterialDesign]][MaterialDesign-url]
-* [![MaterialDesignIcons][MaterialDesignIcons]][MaterialDesignIcons-url]
-
-
-
-## Getting Started
-
-### Requirements
-
-_Clone the client repository_
-```javascript
-git clone https://github.com/dimanyfantakis/TriviaQuiz.git
-```
-
-
 ### Installation
 
 *Install NPM packages*
@@ -77,7 +14,8 @@ git clone https://github.com/dimanyfantakis/TriviaQuiz.git
 
     ***Note:*** In order to use the database, create a **.env** file in the ***server*** folder and add an enviromental variable **MONGO_ATLAS_URI** and set it equal to URI provided by MongoDB Atlas.
 
-
+3. In server folder run
+   ``docker compose up -d`` to spin up db locally or update .env file with you db url
 
 ## Usage
 
