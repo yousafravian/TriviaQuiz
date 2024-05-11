@@ -1,7 +1,9 @@
 <ul class="list-group">
-  @for (quiz of quizzes; track quiz._id) {
+  @for (quiz of quizzes; track quiz._id; let i = $index) {
     <li class="list-group-item d-flex align-items-center">
-      {{ quiz.title }}
+      <div>
+        <div class="pe-4 text-muted">{{ quiz.description }}</div>
+      </div>
       <button class="ms-auto btn btn-primary" [routerLink]="[quiz._id]">Play game</button>
     </li>
   }

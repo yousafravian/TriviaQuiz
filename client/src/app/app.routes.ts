@@ -13,6 +13,8 @@ import {QuizGameComponent} from "./home/quizzes-list/quiz-game/quiz-game.compone
 import {IUser} from "./shared/user.model";
 import {QuizCreateComponent} from "./admin/quiz-create/quiz-create.component";
 import {LeaderboardsComponent} from "./home/leaderboards/leaderboards.component";
+import {CreateComponent} from "./admin/quiz-create/create/create.component";
+import {ListComponent} from "./admin/quiz-create/list/list.component";
 
 
 export const redirectAuthorizedUser: CanActivateFn = (
@@ -92,6 +94,16 @@ export const routes: Routes = [
       {
         path: 'games',
         component: QuizCreateComponent,
+        children: [
+          {
+            path: 'create',
+            component: CreateComponent,
+          },
+          {
+            path: '',
+            component: ListComponent
+          }
+        ]
       }
     ]
   },
