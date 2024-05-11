@@ -5,7 +5,9 @@
       @if(question) {
 
         <div class="form-group">
-          <h4>{{question.question}}</h4>
+          <h4>
+            {{questionCount + 1}}/{{quiz.questions.length}}&nbsp;&nbsp;&nbsp;{{question.question}}
+          </h4>
 
           <ul class="list-group" [formGroup]="questionForm" >
 
