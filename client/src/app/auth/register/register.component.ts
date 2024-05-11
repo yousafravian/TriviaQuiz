@@ -35,7 +35,7 @@ export class RegisterComponent {
         next: ({token, user}) => {
           this.toastr.success('Registration successful!');
 
-          this.router.navigate(['../login']);
+          this.router.navigate(['/auth/login']);
         },
         error: (err: HttpErrorResponse) => {
           if (err.status === HttpStatusCode.NotFound) {
