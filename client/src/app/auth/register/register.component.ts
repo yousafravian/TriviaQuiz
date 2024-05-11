@@ -34,10 +34,8 @@ export class RegisterComponent {
       .subscribe({
         next: ({token, user}) => {
           this.toastr.success('Registration successful!');
-          localStorage.setItem('token', token);
-          localStorage.setItem('user', JSON.stringify(user));
 
-          this.router.navigate(['../games']);
+          this.router.navigate(['../login']);
         },
         error: (err: HttpErrorResponse) => {
           if (err.status === HttpStatusCode.NotFound) {
