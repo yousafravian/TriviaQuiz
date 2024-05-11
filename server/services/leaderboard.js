@@ -8,17 +8,20 @@ async function getLeaderboard(token) {
         const usersScores = [];
         for (const user of users) {
             if (user.isAdmin) continue;
+            const gamesPlayed = user.scores.length;
+            const totalScores = user.scores.reduce((p, c) => p + c.points, 0);
+            const averageScore = gamesPlayed ? totalScores / gamesPlayed : 0;
+
             usersScores.push({
                 username: user.username,
-                gamesPlayed: user.scores.length,
-                totalScores: user.scores.reduce((p,c) => p + c.points, 0)
-            })
+                gamesPlayed: gamesPlayed,
+                totalScores: totalScores,
+                averageScore: averageScore
+            });
         }
-        usersScores.sort((a,b) => {
-            return parseFloat(b.totalScores / b.gamesPlayed) - parseFloat(a.totalScores / a.gamesPlayed);
-        });
-        
-        // const leaderboard = usersScores.slice(0, 100);
+
+        usersScores.sort((a, b) => b.averageScore - a.averageScore);
+
         return usersScores;
     }catch (error) {
         console.log(error);
