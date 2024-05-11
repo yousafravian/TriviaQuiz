@@ -1,21 +1,22 @@
-const User = require('../models/user.model');
+const UserService = require('../models/user.model'); // Adjusted import
+const {UserModel, ScoreModel} = UserService;
 const jwt = require('jsonwebtoken');
 const bcrypt = require("bcryptjs");
 
 async function register(userInput) {
     try {
-        const user = await User.getUserByUsername(userInput.username);
-        if (user){
+        const user = await UserService.getUserByUsername(userInput.username);
+        if (user) {
             return;
         }
 
-        const newUser = new User({
+        const newUser = new UserModel({
             username: userInput.username,
             password: userInput.password,
         });
-        const createdUser = await User.addUser(newUser);
+        const createdUser = await UserService.addUser(newUser);
         return createdUser;
-    }catch (error) {
+    } catch (error) {
         console.log(error);
         throw error;
     }
@@ -23,20 +24,19 @@ async function register(userInput) {
 
 async function login(userInput) {
     try {
-        const user = await User.getUserByUsername(userInput.username);
-        if (!user){
+        const user = await UserService.getUserByUsername(userInput.username);
+        if (!user) {
             return;
         }
 
-        const isPasswordCorrect = await bcrypt.compare(userInput.password, user['_doc'].password);
-
+        const isPasswordCorrect = await bcrypt.compare(userInput.password, user.password);
         if (!isPasswordCorrect) {
             return;
         }
 
-        const token = jwt.sign({user: user}, 'secretkey');
-        return {user, token};
-    }catch (error) {
+        const token = jwt.sign({ user }, 'secretkey');
+        return { user, token };
+    } catch (error) {
         console.log(error);
         throw error;
     }
@@ -44,16 +44,21 @@ async function login(userInput) {
 
 async function addScore(userInput, username) {
     try {
-        const { points, quizId } = userInput;
-        const user = await User.getUserByUsername(username);
-        if (!user){
+        const { points, quiz } = userInput;
+        const user = await UserService.getUserByUsername(username);
+        if (!user) {
             return;
         }
 
-        user.scores.push({points: parseInt(points), quiz: quizId});
-        user.save();
-        return user;
-    }catch (error) {
+        const newScore = new ScoreModel({
+            user: user._id,
+            quiz,
+            points: parseInt(points)
+        });
+
+        const createdScore = await newScore.save();
+        return createdScore;
+    } catch (error) {
         console.log(error);
         throw error;
     }
@@ -62,13 +67,18 @@ async function addScore(userInput, username) {
 async function getScore(username, token) {
     try {
         const payload = jwt.decode(token);
-        const { user } = payload;
-        if (!user){
+        if (!payload) {
             return;
         }
 
-        return user.score;
-    }catch (error) {
+        const user = await UserModel.findById(payload.user);
+        if (!user || user.username !== username) {
+            return;
+        }
+
+        const scores = await ScoreModel.find({ user: user._id });
+        return scores;
+    } catch (error) {
         console.log(error);
         throw error;
     }
@@ -76,20 +86,20 @@ async function getScore(username, token) {
 
 async function createAdminUserIfNotExists() {
     try {
-        const user = await User.getUserByUsername("admin");
-        if (user){
+        const user = await UserService.getUserByUsername("admin");
+        if (user) {
             console.log("Admin user found");
             return;
         }
 
         console.log("No Admin user found, creating admin user");
 
-        const newUser = new User({
+        const newUser = new UserModel({
             username: 'admin',
             password: 'admin@123',
             isAdmin: true,
         });
-        const createdUser = await User.addUser(newUser);
+        const createdUser = await UserService.addUser(newUser);
         return createdUser;
     } catch (error) {
         console.log(error);

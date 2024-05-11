@@ -1,9 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const UserService = require('../services/user');
-const LeaderboardService = require('../services/leaderboard');
 const jwt = require('jsonwebtoken');
 const {verifyToken, verifyValidity} = require("../config/middlewares");
+const {UserModel, getUsersScores} = require("../models/user.model");
 
 
 router.post('/register', async (req, res) => {
@@ -20,7 +20,7 @@ router.post('/register', async (req, res) => {
             message: "User registered",
             user: newUser
         });
-    }catch (error) {
+    } catch (error) {
         res.status(400).send({
             success: false,
             message: "Failed to register user"
@@ -100,7 +100,7 @@ router.get('/getScore', verifyToken, verifyValidity, async (req, res) => {
 
 router.get('/getLeaderboard', verifyToken, verifyValidity, async (req, res) => {
     try {
-        const scores = await LeaderboardService.getLeaderboard(req.token);
+        const scores = await getUsersScores(req.token);
         
         if (scores === undefined) {
             return res.status(404).send({

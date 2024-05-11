@@ -1,5 +1,5 @@
 import {Component, ElementRef, inject, OnInit, ViewChild, viewChild} from '@angular/core';
-import {ActivatedRoute, RouterLink} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {JsonPipe} from "@angular/common";
 import {IQuestion, IQuiz} from "../../../shared/quiz.model";
 import {HttpClient} from "@angular/common/http";
@@ -21,6 +21,7 @@ import {ToastrService} from "ngx-toastr";
 export class QuizGameComponent implements OnInit {
   toastrService = inject(ToastrService);
   route = inject(ActivatedRoute);
+  router = inject(Router);
   http = inject(HttpClient);
   quiz?: IQuiz;
   question?: IQuestion;
@@ -71,6 +72,13 @@ export class QuizGameComponent implements OnInit {
             this.toastrService.success('Scores added');
           });
       }
+    }
+  }
+
+  goBack() {
+    const shouldGoBack = confirm('Are you sure you want to go back? Progress will be lost');
+    if (shouldGoBack) {
+      this.router.navigate(['../'], { relativeTo: this.route});
     }
   }
 }

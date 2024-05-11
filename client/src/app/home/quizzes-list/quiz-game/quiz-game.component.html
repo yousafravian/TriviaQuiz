@@ -1,5 +1,6 @@
 @if (!!quiz) {
   <div class="container mt-5">
+    <button class="btn btn-sm btn-primary" (click)="goBack()">Back</button>
     <h2 class="mb-4">{{ quiz.title }}</h2>
     <form id="quizForm">
       @if(question) {
