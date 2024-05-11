@@ -1,0 +1,8 @@
+<ul class="list-group">
+  @for (quiz of quizzes; track quiz._id) {
+    <li class="list-group-item d-flex align-items-center">
+      {{ quiz.title }}
+      <button class="ms-auto btn btn-primary" [routerLink]="[quiz._id]">Play game</button>
+    </li>
+  }
+</ul>
