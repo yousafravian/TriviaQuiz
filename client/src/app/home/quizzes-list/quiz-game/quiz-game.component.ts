@@ -4,7 +4,7 @@ import {JsonPipe} from "@angular/common";
 import {IQuestion, IQuiz} from "../../../shared/quiz.model";
 import {HttpClient} from "@angular/common/http";
 import JSConfetti from 'js-confetti'
-import {FormArray, FormControl, FormGroup, ReactiveFormsModule} from "@angular/forms";
+import {FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {ToastrService} from "ngx-toastr";
 
 @Component({
@@ -29,7 +29,9 @@ export class QuizGameComponent implements OnInit {
   jsConfetti = new JSConfetti();
 
   // formArray = new FormArray<FormControl<string>>([]);
-  questionControl = new FormControl<string | null>(null);
+  questionControl = new FormControl<string | null>(null, {
+    validators: [ Validators.required ]
+  });
   questionForm = new FormGroup({
     quizQuestion: this.questionControl
   })
@@ -50,6 +52,7 @@ export class QuizGameComponent implements OnInit {
       if (this.questionControl.value === this.question?.answer) {
         this.correctAnswers++;
         this.jsConfetti.addConfetti();
+        this.questionControl.reset();
 
 
       } else {

@@ -24,7 +24,7 @@
             }
           </ul>
         </div>
-        <button (click)="onSubmit()" type="button" class="btn btn-primary mt-5">Submit</button>
+        <button [disabled]="questionControl.invalid" (click)="onSubmit()" type="button" class="btn btn-primary mt-5">Submit</button>
 
       } @else if (questionCount >= quiz.questions.length) {
         <div class="alert alert-success">
