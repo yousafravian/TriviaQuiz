@@ -106,6 +106,10 @@ export const routes: Routes = [
             component: CreateEditComponent,
           },
           {
+            path: 'leaderboards',
+            component: LeaderboardsComponent
+          },
+          {
             path: ':id',
             component: CreateEditComponent
           }

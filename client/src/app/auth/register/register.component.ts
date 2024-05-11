@@ -4,13 +4,15 @@ import {HttpClient, HttpErrorResponse, HttpStatusCode} from "@angular/common/htt
 import {ToastrService} from "ngx-toastr";
 import {IUser} from "../../shared/user.model";
 import {FormsModule} from "@angular/forms";
+import {NgIf} from "@angular/common";
 
 @Component({
   selector: 'app-register',
   standalone: true,
   imports: [
     RouterLink,
-    FormsModule
+    FormsModule,
+    NgIf
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.css'

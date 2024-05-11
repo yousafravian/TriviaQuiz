@@ -1,5 +1,5 @@
 import {Component, inject} from '@angular/core';
-import {Router, RouterOutlet} from "@angular/router";
+import {Router, RouterLink, RouterOutlet} from "@angular/router";
 import {ToastrService} from "ngx-toastr";
 import {FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
 import {JsonPipe, NgIf} from "@angular/common";
@@ -10,7 +10,8 @@ import {JsonPipe, NgIf} from "@angular/common";
     RouterOutlet,
     ReactiveFormsModule,
     JsonPipe,
-    NgIf
+    NgIf,
+    RouterLink
   ],
   templateUrl: './quiz-create.component.html',
   styleUrl: './quiz-create.component.css'

@@ -21,8 +21,8 @@ export class LoginComponent {
   toastr = inject(ToastrService);
   router = inject(Router);
 
-  username: string = 'YousafR';
-  password: string = '1234567';
+  username: string = 'admin@gmail.com';
+  password: string = 'admin@123';
 
 
   onSignIn(): void {

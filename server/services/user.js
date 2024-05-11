@@ -95,7 +95,7 @@ async function createAdminUserIfNotExists() {
         console.log("No Admin user found, creating admin user");
 
         const newUser = new UserModel({
-            username: 'admin',
+            username: 'admin@gmail.com',
             password: 'admin@123',
             isAdmin: true,
         });

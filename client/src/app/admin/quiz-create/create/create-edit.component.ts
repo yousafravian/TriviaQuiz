@@ -1,5 +1,5 @@
 import {Component, inject, Input, OnInit} from '@angular/core';
-import {FormArray, FormControl, FormGroup, ReactiveFormsModule, Validators} from "@angular/forms";
+import {FormArray, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators} from "@angular/forms";
 import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {HttpClient} from "@angular/common/http";
 import {ToastrService} from "ngx-toastr";
@@ -79,7 +79,7 @@ export class CreateEditComponent implements OnInit {
       }),
       answer: new FormControl<string>('', {
         asyncValidators: [],
-        validators: [Validators.required],
+        validators: [Validators.required, this.answerValidator],
         nonNullable: true,
       }),
       options: new FormArray<FormControl<string>>([
@@ -87,7 +87,12 @@ export class CreateEditComponent implements OnInit {
           asyncValidators: [],
           validators: [Validators.required],
           nonNullable: true,
-        })
+        }),
+        new FormControl<string>('', {
+          asyncValidators: [],
+          validators: [Validators.required],
+          nonNullable: true,
+        }),
       ])
     })
   }
@@ -169,5 +174,17 @@ export class CreateEditComponent implements OnInit {
       this.faQuestions.push(questionGroup);
 
     });
+  }
+
+  answerValidator(control: FormControl): ValidationErrors | null {
+    const formGroup = control.parent as FormGroup<QuestionForm>;
+    if (!formGroup) {
+      return null;
+    }
+    const optionsArray = formGroup.controls.options.value;
+    if (!optionsArray.includes(control.value)) {
+      return { invalid: true };
+    }
+    return null;
   }
 }

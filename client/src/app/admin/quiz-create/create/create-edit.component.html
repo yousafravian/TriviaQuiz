@@ -34,7 +34,7 @@
             @for(optionControl of questionFormGroup.controls.options.controls; track optionControl; let optionIndex = $index) {
               <div class="input-group">
                 <input class="form-control" [formControl]="optionControl" type="email" [placeholder]="'Option: ' + (optionIndex + 1)">
-                <div *ngIf="optionIndex > 0" class="input-group-text bg-danger text-light" (click)="removeOptionFromQuestionAt(i, optionIndex)" id="btnGroupAddon2">X</div>
+                <div *ngIf="optionIndex > 1" class="input-group-text bg-danger text-light" (click)="removeOptionFromQuestionAt(i, optionIndex)" id="btnGroupAddon2">X</div>
               </div>
             }
             <button class="btn block btn-primary btn-sm mt-3" [disabled]="faQuestions.at(i).controls.options.length >= 5"  (click)="addOptionToQuestion(i)">+ Add Option</button>
@@ -42,6 +42,7 @@
 
             <div class="mt-5">
               <input formControlName="answer" type="email" class="form-control" placeholder="Answer">
+              <label [class.invisible]="!(questionFormGroup.controls.answer.touched && questionFormGroup.controls.answer.errors?.['invalid'])" class="small d-block block text-danger">Invalid Answer</label>
             </div>
           </div>
         </div>
