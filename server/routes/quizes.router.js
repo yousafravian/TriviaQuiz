@@ -122,7 +122,23 @@ router.put('/:id', verifyToken, isAdmin, async (req, res) => {
 
         await Promise.all(questionPromises);
 
-        res.json(updatedQuiz);
+        // Fetch the updated questions
+        const updatedQuestions = await Question.find({ quiz: req.params.id });
+
+        // Structure the response to include the updated questions
+        const response = {
+            _id: updatedQuiz._id,
+            title: updatedQuiz.title,
+            description: updatedQuiz.description,
+            questions: updatedQuestions.map(question => ({
+                _id: question._id,
+                question: question.question,
+                options: question.options,
+                answer: question.answer
+            }))
+        };
+
+        res.json(response);
     } catch (error) {
         res.status(500).json({ error: 'Failed to update quiz' });
     }

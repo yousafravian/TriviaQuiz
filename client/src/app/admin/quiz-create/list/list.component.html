@@ -8,7 +8,10 @@
           {{ quiz.title }}
           <div class="pe-4 text-muted">{{ quiz.description }}</div>
         </div>
-        <button class="ms-auto btn btn-danger" (click)="deleteQuiz(quiz._id)">Delete</button>
+        <span class="ms-auto d-flex gap-1">
+          <button class="btn btn-secondary" (click)="editQuiz(quiz._id)">Edit</button>
+          <button class="btn btn-danger" (click)="deleteQuiz(quiz._id)">Delete</button>
+        </span>
       </li>
     }
   </ul>
