@@ -86,7 +86,7 @@ async function getScore(username, token) {
 
 async function createAdminUserIfNotExists() {
     try {
-        const user = await UserService.getUserByUsername("admin");
+        const user = await UserService.getUserByUsername("admin@gmail.com");
         if (user) {
             console.log("Admin user found");
             return;
