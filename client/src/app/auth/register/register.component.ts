@@ -23,8 +23,8 @@ export class RegisterComponent {
   toastr = inject(ToastrService);
   router = inject(Router);
 
-  username: string = 'YousafR';
-  password: string = '1234567';
+  username: string = '';
+  password: string = '';
 
 
   onSignIn(): void {

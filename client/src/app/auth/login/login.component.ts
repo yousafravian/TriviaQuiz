@@ -1,6 +1,6 @@
 import {Component, inject} from '@angular/core';
 import {Router, RouterLink} from "@angular/router";
-import {FormsModule} from "@angular/forms";
+import {AbstractControl, FormsModule, ValidationErrors} from "@angular/forms";
 import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {ToastrModule, ToastrService} from "ngx-toastr";
 import {IUser} from "../../shared/user.model";
@@ -30,9 +30,9 @@ export class LoginComponent {
       username: this.username,
       password: this.password
     }
-    this.http.post<{ token: string, user: IUser}>('user/login', payload)
+    this.http.post<{ token: string, user: IUser }>('user/login', payload)
       .subscribe({
-        next: ({ token, user}) => {
+        next: ({token, user}) => {
           this.toastr.success('Login successful!');
           localStorage.setItem('token', token);
           localStorage.setItem('user', JSON.stringify(user));
@@ -43,9 +43,6 @@ export class LoginComponent {
           this.toastr.error('Login failed!');
         }
       });
-  }
-
-  showSuccess() {
   }
 
 }
