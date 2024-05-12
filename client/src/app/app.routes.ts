@@ -43,7 +43,7 @@ export const redirectAdminToCreatePage: CanActivateFn = (
   state: RouterStateSnapshot) => {
   const router = inject(Router);
   const token = localStorage.getItem('token');
-  const user = JSON.parse(localStorage.getItem('user') ?? "") as IUser;
+  const user = JSON.parse(localStorage.getItem('user') ?? '{}') as IUser;
 
   return !!(token && !user?.isAdmin);
 
