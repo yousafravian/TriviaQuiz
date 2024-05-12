@@ -52,12 +52,12 @@ export class QuizGameComponent implements OnInit {
       if (this.questionControl.value === this.question?.answer) {
         this.correctAnswers++;
         this.jsConfetti.addConfetti();
-        this.questionControl.reset();
 
 
       } else {
         this.toastrService.error('Invalid answer');
       }
+      this.questionControl.reset();
 
       this.questionCount++;
       this.question = this.quiz.questions[this.questionCount];

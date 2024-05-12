@@ -114,11 +114,11 @@ export const routes: Routes = [
             component: CreateEditComponent
           }
         ]
+      },
+      {
+        path: "**",
+        redirectTo: 'games'
       }
     ]
-  },
-  {
-    path: "**",
-    redirectTo: 'home'
   }
 ];
